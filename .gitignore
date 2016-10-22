@@ -1,0 +1,27 @@
+
+.gradle
+build/
+
+*.iml
+
+.idea/
+.svn/
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+/classes/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+### Java template
+*.class
+
+
+

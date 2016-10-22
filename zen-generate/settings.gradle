@@ -1,0 +1,5 @@
+rootProject.name = 'zen-generate'
+include 'entity'
+include 'jdbc'
+include 'web'
+
