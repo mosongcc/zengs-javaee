@@ -4,11 +4,9 @@ package com.zengs.jdbc;
 import javax.sql.DataSource;
 
 /**
- * DB连接池实例抽象类
+ * DB连接池抽象实例
  */
-public abstract class AbstractPoolInstence {
-
-    private DataSource dataSource = null;
+public abstract class PoolInstence {
 
 
     protected abstract DataSource getDataSource();

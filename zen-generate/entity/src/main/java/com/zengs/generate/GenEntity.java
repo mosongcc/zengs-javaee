@@ -137,7 +137,7 @@ public class GenEntity {
 
     private String[] colNames; // 列名数组
     private String[] colTypes; // 列名类型数组
-    private int[]    colSizes; // 列数据长度
+    private int[]    colSizes; // 列数据长度，暂时没用到，可根据列长度来更准确选择java类型
 
     private Set<String> imports;  //引入包
 
@@ -257,7 +257,6 @@ public class GenEntity {
         String code = sb.toString().replace("{{imports}}",importStr);
         System.out.println(packagePath+"."+entityName + ".java");
         return code;
-
     }
 
     /**
@@ -328,7 +327,7 @@ public class GenEntity {
         if ((!isAttribute) && charArr[0] >= 'a' && charArr[0] <= 'z') {
             charArr[0] = (char) (charArr[0]-32);
         }
-        //去掉下划线且后一位字母变大写
+        //下划线后一位字母变大写
         for (int i = 1;i<charArr.length;i++) {
             if('_'==charArr[i]){
                 charArr[i+1] = (char)(charArr[i+1]-32);

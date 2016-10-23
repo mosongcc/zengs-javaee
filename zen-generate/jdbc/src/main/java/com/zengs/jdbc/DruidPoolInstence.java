@@ -11,7 +11,7 @@ import javax.sql.DataSource;
  *
  */
 
-public class DruidPoolInstence extends AbstractPoolInstence  {
+public class DruidPoolInstence extends PoolInstence  {
 
     private DruidDataSource dataSource = null;
 

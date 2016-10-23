@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper>
+
+    <!-- if 判断 null 与 空格 -->
+    <sql id="queryMerchant">
+        select * from pine_merchant_info
+        <if-not-empty prefix=" " attr="mercId">
+            mercid = {mercId}
+        </if-not-empty>
+    </sql>
+
+</mapper>
