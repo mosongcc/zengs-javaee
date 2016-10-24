@@ -17,6 +17,8 @@ public abstract class JdbcInstence {
 
     abstract Integer insert(Object args); //Object为实体类
 
+    abstract Integer insert(List<Object> args);
+
     abstract void update(Object args,String primaryKey); //Object实体类
 
     abstract void update(Object args,Criteria criteria); //args待修改的对象
