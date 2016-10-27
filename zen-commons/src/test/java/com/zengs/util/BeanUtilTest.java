@@ -24,10 +24,13 @@ public class BeanUtilTest {
     public void toBean() throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("id","11");
+        map.put("age","11");
         map.put("name","уехЩ");
         map.put("cdate",new Date());
         Person person = BeanUtil.toBean(map,Person.class);
-        System.out.println(person.getName());
+
+        Map<String,Object> map2 = BeanUtil.toMap(person);
+        System.out.println(map2);
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by songz on 2016/10/27.
  */
-public class Person {
+public class Person extends User {
 
     private int id;
     private String name;
