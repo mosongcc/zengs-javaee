@@ -119,7 +119,7 @@ public class GenEntity {
             Class.forName(DB_DRIVER);
             conn = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASSWORD);
         } catch (ClassNotFoundException e) {
-            System.out.println("数据库连接驱动\""+DB_DRIVER+"\"未找到");
+            System.out.println("数据库连接驱动 "+DB_DRIVER+" 未找到");
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
