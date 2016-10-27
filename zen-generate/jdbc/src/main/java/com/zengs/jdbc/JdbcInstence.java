@@ -71,4 +71,6 @@ public abstract class JdbcInstence {
 
     abstract <T> T criteriaQueryForField(String sql,Class<T> T,Object...args);
 
+    abstract int execUpdate(String sql,Object...args);
+
 }
