@@ -1,0 +1,20 @@
+group 'com.zengs.web'
+version '1.0'
+
+
+
+dependencies {
+    compile(
+
+            //Freemarker
+            'org.freemarker:freemarker:2.3.23',
+
+            //Druid 连接池 与Jdbc driver   Oracle需放入lib或者手动加到maven源
+            'com.alibaba:druid:1.0.11',
+            //oracle10g druid 1.0.11到1.0.20都有错误
+            'mysql:mysql-connector-java:5.1.37',
+
+
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
