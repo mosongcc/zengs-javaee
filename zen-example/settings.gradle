@@ -1,3 +1,4 @@
 rootProject.name = 'zen-example'
 include 'des-encrypt'
+include 'demo'
 
