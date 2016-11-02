@@ -1,14 +1,42 @@
 group 'com.zengs.web'
 version '1.0'
 
-apply plugin: 'java'
 
-sourceCompatibility = 1.5
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        org.gradle.jvm.Classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+    }
+}
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'zen-spring'
+    version =  '0.0.1'
+}
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    jcenter()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile(
+            "org.springframework.boot:spring-boot-starter-web", //web模块
+            "org.springframework.boot:spring-boot-devtools",  //配置自动部署
+            "org.springframework.boot:spring-boot-starter-freemarker"
+    )
+    testCompile(
+            "org.springframework.boot:spring-boot-starter-test"
+    )
 }
