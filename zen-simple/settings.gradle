@@ -1,6 +1,0 @@
-rootProject.name = 'zen-simple'
-include 'commons'
-include 'adodb'
-include 'web-boot'
-include 'generate'
-

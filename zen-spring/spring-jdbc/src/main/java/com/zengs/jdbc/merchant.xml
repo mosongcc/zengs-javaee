@@ -4,9 +4,12 @@
     <!-- if 判断 null 与 空格 -->
     <sql id="queryMerchant">
         select * from pine_merchant_info
-        <if-not-empty prefix=" " attr="mercId">
+
+        {if}
+        {/if}
+        <if prefix=" " name="mercId" eq="" uneq="" gt="" lt="">
             mercid = {mercId}
-        </if-not-empty>
+        </if>
     </sql>
 
 </mapper>

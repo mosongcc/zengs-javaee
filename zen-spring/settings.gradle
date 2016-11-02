@@ -1,0 +1,11 @@
+rootProject.name = 'zen-spring'
+include 'commons'
+include 'entity'
+include 'generate'
+include 'spring-jdbc'
+include 'spring-boot'
+include 'spring-mvc'
+include 'spring-security'
+include 'spring-session'
+
+
