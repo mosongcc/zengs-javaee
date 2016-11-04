@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://cxf.apache.org/jaxws
+	http://cxf.apache.org/schemas/jaxws.xsd">
+ 	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+	<!--<bean id="userSerivce" class="org.wjlmgqs.service.imp.UserServiceImp"/>
+	<jaxws:server id="userWebService" serviceClass="org.wjlmgqs.service.UserService" address="/user">
+	    <jaxws:serviceBean>
+	        <ref bean="userSerivce"/>
+	    </jaxws:serviceBean>
+	</jaxws:server>-->
+	<!--上面通过jaxws:server来发布服务，还可以通过下面的方式实现-->
+	<bean id="userSerivce" class="org.wjlmgqs.service.imp.UserServiceImp"/>
+        <jaxws:endpoint id="userWebService" implementor="#userSerivce" address="/user"/>
+    </beans>

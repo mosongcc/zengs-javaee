@@ -1,0 +1,25 @@
+group 'com.zengs.example'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+[compileJava,compileTestJava,javadoc]*.options*.encoding='GBK'
+compileJava*.options*.compilerArgs=[/*"-Xlint:unchecked",*/ "-g:vars", "-g:lines", "-g:source"]
+javadoc*.options*.encoding = 'GBK'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+
+    )
+    compile fileTree(dir: 'src/main/webapp/WEB-INF/lib', include: ['*.jar'])
+    providedCompile(
+            'javax:javaee-api:7.0',    //javaee7£¬°üº¬servlet jstl µÈµÈ
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
