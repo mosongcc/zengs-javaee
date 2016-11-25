@@ -5,7 +5,8 @@
     <sql id="queryMerchant">
         select * from pine_merchant_info
 
-        {if}
+        {if mercId==null | mer==2}
+        MERCID = #mercId#
         {/if}
         <if prefix=" " name="mercId" eq="" uneq="" gt="" lt="">
             mercid = {mercId}

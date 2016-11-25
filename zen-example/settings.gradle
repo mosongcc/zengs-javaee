@@ -3,4 +3,5 @@ include 'des-encrypt'
 include 'demo'
 include 'webservice-cxf'
 include 'webservice-cxf2.2.12'
+include 'demo-poi'
 
