@@ -18,7 +18,14 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile(
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-log4j2"
+    )
+    //exclude spring-boot-starter-logging use spring-boot-starter-log4j2
+    compile("org.springframework.boot:spring-boot-starter"){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
