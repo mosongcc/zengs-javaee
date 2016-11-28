@@ -1,0 +1,3 @@
+rootProject.name = 'zengs-javaee'
+include 'zen-spring-boot'
+

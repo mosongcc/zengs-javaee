@@ -1,7 +1,6 @@
 group 'com.zengs.web'
 version '1.0'
 
-
 buildscript {
     repositories {
         mavenLocal()
