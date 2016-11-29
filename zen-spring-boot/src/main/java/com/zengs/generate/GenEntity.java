@@ -39,7 +39,7 @@ public class GenEntity {
      * 2. 生成实体类文件保存路径；
      * 3. 生成的表
      */
-    public static void main(String[] args) {
+    public static void main_bak(String[] args) {
         System.out.println("开始生成代码......");
         System.out.println("输出路径："+fileDir);
         if(tableNames.length>0){

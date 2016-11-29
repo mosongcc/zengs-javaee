@@ -1,4 +1,4 @@
-package com.zengs.entity;
+package com.zengs.domain;
 
 import java.io.Serializable;
 

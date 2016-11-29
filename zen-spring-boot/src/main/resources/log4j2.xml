@@ -3,7 +3,7 @@
 
     <Properties>
         <property name="log_pattern">%d{yy-MM-dd HH:mm:ss.SS} %-5level [%class{36} %L %M ] %msg%xEx%n</property>
-        <property name="log_dir">${sys:catalina.home}/logs/</property>
+        <property name="log_dir">logs/</property>
     </Properties>
 
     <appenders>
