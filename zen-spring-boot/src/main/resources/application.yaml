@@ -23,5 +23,5 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
 
 # Loging settings
-#logging:
-#  config: classpath:log4j2.xml
+logging:
+  config: classpath:logback-spring.xml
