@@ -1,6 +1,8 @@
 package com.zengs.service;
 
 import com.zengs.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private static Logger log = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -27,6 +31,8 @@ public class UserService {
             public User mapRow(ResultSet rs, int rowNum) throws SQLException {
                 User user = new User();
                 user.setUsername(rs.getString("name"));
+
+                log.debug("select name={}",rs.getString("name"));
                 return user;
             }
         });

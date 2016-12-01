@@ -1,0 +1,36 @@
+# ***************************************************************
+# Spring boot Project Configuration
+# ***************************************************************
+
+# Server settings (ServerProperties)
+server:
+  port: 8181
+  address: 127.0.0.1
+  sessionTimeout: 30
+  contextPath: /
+  tomcat:
+    accessLogEnabled: false
+    protocolHeader: x-forwarded-proto
+    remoteIpHeader: x-forwarded-for
+    basedir: /
+    backgroundProcessorDelay: 30   #seconds
+
+spring:
+  application:
+    name: umq-waimai
+  session:
+    store-type: hash_map
+  cache:
+      type: simple
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@//58.32.228.203:1521/orcl
+    username: UnionLive
+    password: UnionLive
+
+
+
+
+# Loging settings
+logging:
+  config: ./logback-spring.xml
