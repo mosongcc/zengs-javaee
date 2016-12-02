@@ -1,14 +1,23 @@
 package com.zengs.generate;
 
+import com.zengs.core.SimpleJdbc;
+
 /**
  * Created by song on 2016/10/23.
  */
-public class APP {
+public class APP extends AppParent {
 
-    public static void main_bak(String[] args) {
-        System.out.println(System.getProperty("java.class.path"));
+    //@Override
+    public void ab(){
+        System.out.println("APP-aaaaaaaaaaaaaaa");
+    }
 
-        System.out.println(APP.class.getProtectionDomain().getCodeSource().getLocation());
+
+    public static void main(String[] args) {
+        int i = 0;
+        System.out.println(i++);
+        System.out.println(i++);
+
     }
 
 }
