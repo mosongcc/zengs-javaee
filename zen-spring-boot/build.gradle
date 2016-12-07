@@ -16,7 +16,6 @@ apply plugin: 'org.springframework.boot'
 jar {
     baseName = 'spring-boot'
     version =  '1.0.161201'
-
 }
 
 repositories {
