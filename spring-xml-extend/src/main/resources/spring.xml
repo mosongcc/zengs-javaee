@@ -6,17 +6,19 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://extend.spring.xml/schema/sql
-        http://extend.spring.xml/schema/sql/sql.xsd">
+        http://extend.spring.xml/schema/sql/spring-sql.xsd">
 
 
-    <sql:select id="merchant">
-        select * from ULTAB_WM_CATE
-        where 1=1
-    </sql:select>
+    <sql:handle id="sqlMapperHandle">
+        <sql:select name="merchant1">
+            select * from ULTAB_WM_CATE where 1=18979
+        </sql:select>
+    </sql:handle>
 
-    <sql:select id="merchant2">
-        select * from ULTAB_WM_CATE  where 1=1
-    </sql:select>
+
+   <!-- <sql:select id="merchant2">
+        select * from ULTAB_WM_CATE     where 1=1
+    </sql:select>-->
 
 
 </beans>
