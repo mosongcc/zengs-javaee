@@ -17,4 +17,6 @@
     <sql:select id="merchant2">
         select * from ULTAB_WM_CATE  where 1=1
     </sql:select>
+
+
 </beans>
