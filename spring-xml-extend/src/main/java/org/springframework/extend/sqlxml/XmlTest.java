@@ -7,8 +7,10 @@ public class XmlTest {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        SqlMapperHandle ds = (SqlMapperHandle) context.getBean("sqlMapperHandle");
-        System.out.println(ds.getSqlMapper());
+        SqlMapper ds = (SqlMapper) context.getBean("merchant2");
+        System.out.println(ds.getValue());
+        ds = (SqlMapper) context.getBean("asdf");
+        System.out.println(ds.getValue());
     }
 }
 

@@ -9,7 +9,7 @@
         http://extend.spring.xml/schema/sql/spring-sql.xsd">
 
 
-    <sql:select id="merchant2">
+    <sql:select id="selectQuery">
         select * from ULTAB_WM_CATE
     </sql:select>
 

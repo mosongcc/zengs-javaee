@@ -4,7 +4,6 @@ package org.springframework.extend.sqlxml;
  * Sql语句映射对象
  */
 public class SqlMapper {
-/*
     private String id;
     private String value;
     private String returnClass;
@@ -31,5 +30,5 @@ public class SqlMapper {
 
     public void setReturnClass(String returnClass) {
         this.returnClass = returnClass;
-    }*/
+    }
 }

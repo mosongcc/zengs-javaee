@@ -7,66 +7,40 @@
 
     <xsd:import namespace="http://www.springframework.org/schema/beans" />
 
-    <xsd:element name="handle">
-        <xsd:complexType>
-            <xsd:complexContent>
-                <xsd:extension base="propsType">
-                    <xsd:attribute name="id" type="xsd:string" use="optional" default="sqlMapperHandle"/>
-                    <xsd:attribute name="clearLine" type="xsd:boolean" use="optional" default="true"/>
-                </xsd:extension>
-            </xsd:complexContent>
-        </xsd:complexType>
-    </xsd:element>
-
-    <!-- 'props' collection type -->
-    <xsd:complexType name="propsType">
-        <xsd:complexContent>
-            <xsd:extension base="collectionType">
-                <xsd:sequence>
-                    <xsd:choice minOccurs="0" maxOccurs="unbounded">
-                        <xsd:element ref="select"/>
-                    </xsd:choice>
-                </xsd:sequence>
-            </xsd:extension>
-        </xsd:complexContent>
+    <xsd:complexType name="sqlTypes" mixed="true">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="clearLine" type="xsd:boolean" use="optional" default="true"/>
     </xsd:complexType>
-
-    <!-- base type for collections that have (possibly) typed nested values -->
-    <xsd:complexType name="collectionType">
-        <!--<xsd:attribute name="value-type" type="xsd:string"/>-->
-    </xsd:complexType>
-
-    <!-- simple internal types -->
-    <xsd:simpleType name="defaultable-boolean">
-        <xsd:restriction base="xsd:NMTOKEN">
-            <xsd:enumeration value="default"/>
-            <xsd:enumeration value="true"/>
-            <xsd:enumeration value="false"/>
-        </xsd:restriction>
-    </xsd:simpleType>
-
 
     <xsd:element name="select">
-        <xsd:complexType mixed="true">
-            <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:complexType>
+           <xsd:complexContent>
+               <xsd:extension base="sqlTypes"></xsd:extension>
+           </xsd:complexContent>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:element name="insert">
-        <xsd:complexType mixed="true">
-            <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="sqlTypes"></xsd:extension>
+            </xsd:complexContent>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:element name="update">
-        <xsd:complexType mixed="true">
-            <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="sqlTypes"></xsd:extension>
+            </xsd:complexContent>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:element name="delete">
-        <xsd:complexType mixed="true">
-            <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="sqlTypes"></xsd:extension>
+            </xsd:complexContent>
         </xsd:complexType>
     </xsd:element>
 

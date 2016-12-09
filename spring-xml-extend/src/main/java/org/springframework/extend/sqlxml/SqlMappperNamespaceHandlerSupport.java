@@ -17,41 +17,33 @@ import java.util.Map;
 public class SqlMappperNamespaceHandlerSupport extends NamespaceHandlerSupport {
 
     public void init() {
-        registerBeanDefinitionParser("handle",new SqlMapperHandleAbstractSingleBeanDefinitionParser());
+        registerBeanDefinitionParser("select",new SqlMapperAbstractSingleBeanDefinitionParser());
+        registerBeanDefinitionParser("insert",new SqlMapperAbstractSingleBeanDefinitionParser());
+        registerBeanDefinitionParser("update",new SqlMapperAbstractSingleBeanDefinitionParser());
+        registerBeanDefinitionParser("delete",new SqlMapperAbstractSingleBeanDefinitionParser());
     }
 
     /**
      * spring扩展xml标签解析
      */
-    private class SqlMapperHandleAbstractSingleBeanDefinitionParser extends AbstractSingleBeanDefinitionParser{
+    private class SqlMapperAbstractSingleBeanDefinitionParser extends AbstractSingleBeanDefinitionParser{
         @Override
         protected Class<?> getBeanClass(Element element) {
-            return SqlMapperHandle.class;
+            return SqlMapper.class;
         }
 
         @Override
         protected void doParse(Element element, BeanDefinitionBuilder builder) {
             String id = element.getAttribute("id");
             String clearLine = element.getAttribute("clearLine");
-            Map<String,String> sqlMapper = new HashMap<>();
-            System.out.println("=================");
-            System.out.println(element.getNodeName());
-
-
-            NodeList nodeList = element.getOwnerDocument().getChildNodes();
-            for (int i = 0;i<nodeList.getLength();i++) {
-                Node node = nodeList.item(i);
-                System.out.println(node.getNodeName());
-                String key = "";//subDoc.getAttribute("name");
-                String value = "";//subDoc.getTextContent();
-                if("true".equals(clearLine)){
-                    //Clean up the line breaks and Spaces
-                    value = value.replaceAll("\\n","");
-                    while (value.indexOf("  ")>-1){ value = value.replaceAll("  "," "); }
-                }
-                sqlMapper.put(key,value);
+            String value = element.getTextContent();
+            if("true".equals(clearLine)){
+                //Clean up the line breaks and Spaces
+                value = value.replaceAll("\\n","");
+                while (value.indexOf("  ")>-1){ value = value.replaceAll("  "," "); }
             }
-            builder.addPropertyValue("sqlMapper",sqlMapper);
+            builder.addPropertyValue("id",id);
+            builder.addPropertyValue("value",value);
         }
     }
 
