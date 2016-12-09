@@ -1,1 +1,1 @@
-http\://extend.spring.xml/schema/sql=com.unionlive.generate.SqlMappperNamespaceHandlerSupport
+http\://extend.spring.xml/schema/sql=org.springframework.extend.sqlxml.SqlMappperNamespaceHandlerSupport
