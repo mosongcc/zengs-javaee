@@ -2,4 +2,6 @@ rootProject.name = 'zengs-javaee'
 include 'zen-spring-boot'
 include 'spring-xml-extend'
 include 'mybatis'
+include 'logback'
+include 'log4j2'
 

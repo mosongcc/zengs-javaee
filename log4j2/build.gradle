@@ -1,0 +1,25 @@
+group 'com.zengs.javaee'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile(
+
+            //log4j2
+            'org.apache.logging.log4j:log4j-api:2.8',
+            'org.apache.logging.log4j:log4j-core:2.8',
+
+    )
+
+    providedCompile(
+            'javax:javaee-api:7.0',
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
