@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc
+            http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+            http://www.springframework.org/schema/task
+            http://www.springframework.org/schema/task/spring-task.xsd
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/cache
+            http://www.springframework.org/schema/cache/spring-cache.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.unionlive.app.controller"/>
+    <context:component-scan base-package="com.unionlive.app.*.controller"/>
+
+    <!-- 注解映射支持 -->
+    <mvc:annotation-driven/>
+
+    <!-- 优先使用默认servlet处理请求 -->
+    <mvc:default-servlet-handler default-servlet-name="default"/>
+
+    <!-- 重定向，不加redirect交给视图处理器处理 -->
+    <!--<mvc:view-controller path="/index" view-name="redirect:index.html" />-->
+
+    <!-- 静态资源映射   dispatcherServlet映射路劲有/时，将拦截所有请求，这里指定静态资源目录 -->
+    <mvc:resources  mapping="/assets/**"  location="/assets/">
+        <mvc:cache-control max-age="3600" cache-public="true"/>
+    </mvc:resources>
+
+    <!--JSP视图解析器-->
+    <bean id="viewResolverJsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"/>
+        <property name="order" value="1"/>
+    </bean>
+
+
+    <!--
+    文件上传解析器 id 必须为multipartResolver
+    maxUploadSize以字节为单位：10485760 =10M
+    依赖commons-fileupload
+    -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:maxUploadSize="10485760"
+          p:defaultEncoding="UTF-8"/>
+
+
+</beans>
+
+
