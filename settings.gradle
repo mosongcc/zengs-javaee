@@ -4,4 +4,6 @@ include 'spring-xml-extend'
 include 'mybatis'
 include 'logback'
 include 'log4j2'
+include 'mybatis3+spring4'
+include 'spring-jdbc'
 
