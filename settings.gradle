@@ -7,4 +7,5 @@ include 'log4j2'
 include 'mybatis3+spring4'
 include 'spring-jdbc'
 include 'webqq'
+include 'jsonapi'
 
