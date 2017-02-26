@@ -11,4 +11,5 @@ include 'jsonapi'
 include 'Shiro'
 include 'SpringSecurity'
 include 'lib-socket'
+include 'commons-utils'
 
