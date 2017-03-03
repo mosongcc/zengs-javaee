@@ -12,4 +12,6 @@ include 'Shiro'
 include 'SpringSecurity'
 include 'lib-socket'
 include 'java'
+include '_jar-compile'
+include '_jar-commons-utils'
 
