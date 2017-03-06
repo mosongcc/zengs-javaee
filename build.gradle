@@ -28,7 +28,6 @@ allprojects {
         mavenCentral()
         jcenter()
         //maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
-        //maven { url 'http://repo1.maven.org/maven2' }
     }
 
 }
@@ -38,9 +37,20 @@ subprojects {
     dependencies {
         compile(
 
+                //Json 2.x
+                'com.fasterxml.jackson.core:jackson-core:2.6.4',                    //流式的解析器和生成器
+                'com.fasterxml.jackson.core:jackson-annotations:2.6.4',             //带注释的数据绑定包
+                'com.fasterxml.jackson.core:jackson-databind:2.6.4',                //对象映射器，JSON树模型
+                'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.4',    //xml支持
+
+                //Apache
+
+
 
         )
-        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile(
+                'junit:junit:4.12',
+        )
     }
 
 }
