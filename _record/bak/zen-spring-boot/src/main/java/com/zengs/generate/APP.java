@@ -1,7 +1,5 @@
 package com.zengs.generate;
 
-import com.zengs.core.SimpleJdbc;
-
 /**
  * Created by song on 2016/10/23.
  */
