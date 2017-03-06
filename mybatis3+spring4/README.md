@@ -4,43 +4,71 @@
 
 #Spring[MVC]4.1.2.RELEASE
 
-项目使用Spring4.1.2.RELEASE + SpringMVC4.1.2.RELEASE + Mybatis3.3.0
+#Oracle
+
+项目使用Spring4.1.2.RELEASE + SpringMVC4.1.2.RELEASE + Mybatis3.3.0 + Oracle
 
 项目集成了Mybatis分页插件和通用Mapper插件
 
-项目使用的mysql数据库，根据需要可以切换为其他数据库
+项目使用的Oracle数据库，根据需要可以切换为其他数据库
 
-集成分页插件 5.0.0 版本，注意配置变化：
+##注意主键
+
+```java
+public class Country {
+    /**
+     * 主键
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select SEQ_COUNTRY.nextval from dual")
+    private Integer id;
+
+    //省略其他
+```
+
+##注意通用Mapper配置
 ```xml
-<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-    <property name="dataSource" ref="dataSource"/>
-    <property name="mapperLocations">
-        <array>
-            <value>classpath:mapper/*.xml</value>
-        </array>
-    </property>
-    <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
-    <property name="plugins">
-        <array>
-            <bean class="com.github.pagehelper.PageInterceptor">
-                <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
-                <property name="properties">
-                    <value>
-                        helperDialect=mysql
-                        reasonable=true
-                        supportMethodsArguments=true
-                        params=count=countSql
-                        autoRuntimeDialect=true
-                    </value>
-                </property>
-            </bean>
-        </array>
+<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.isea533.mybatis.mapper"/>
+    <!-- 3.2.2版本新特性，markerInterface可以起到mappers配置的作用，详细情况需要看Marker接口类 -->
+    <property name="markerInterface" value="com.isea533.mybatis.util.MyMapper"/>
+    <!-- 通用Mapper通过属性注入进行配置，默认不配置时会注册Mapper<T>接口 -->
+    <property name="properties">
+        <value>
+            ORDER=BEFORE
+        </value>
     </property>
 </bean>
 ```
-- 拦截器 `com.github.pagehelper.PageInterceptor`
-- 原来的 `dialect` 变成了 `helperDialect`，这是基于 PageHelper 方式的分页
-- 具体变化看文档
+主要是`ORDER=BEFORE`，这个可以保证序列先执行
+
+##新增国家输出的日志
+
+```
+DEBUG [http-apr-8091-exec-4] - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@43daa112] will be managed by Spring
+DEBUG [http-apr-8091-exec-4] - ==>  Executing: select SEQ_COUNTRY.nextval from dual
+DEBUG [http-apr-8091-exec-4] - <==      Total: 1
+DEBUG [http-apr-8091-exec-4] - ==>  Preparing: INSERT INTO country ( id,countryname,countrycode ) VALUES( ?,?,? )
+DEBUG [http-apr-8091-exec-4] - ==> Parameters: 200(Integer), 测试(String), CS(String)
+DEBUG [http-apr-8091-exec-4] - <==    Updates: 1
+```
+
+##如何运行本项目
+
+先通过项目sql文件下的sql创建数据库的基本环境，如果没有表空间，就先执行**创建表空间和用户.sql**
+
+之后使用新建的用户登录，然后执行 **创建表-序列-数据.sql**
+
+准备好数据库之后，修改`src/main/resources/config.properties`配置：
+```
+# 数据库配置
+jdbc.driverClass = oracle.jdbc.driver.OracleDriver
+jdbc.url = jdbc:oracle:thin:@//192.168.16.137:1521/orcl
+jdbc.user = mybatis
+jdbc.password = mybatis
+```
+
+保持上面的配置和自己的数据库一致即可。
 
 ##Spring Boot集成MyBatis的基础项目
 
@@ -64,6 +92,4 @@
 
 - 作者邮箱：abel533@gmail.com
 
-- Mybatis工具群（推荐）： <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=7c2f018e4cddc7d4aad04fc312b2d69361a0a896a4f59219a7914953a57bffc2"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Mybatis工具群(2)" title="Mybatis工具群(2)"></a>
-
-- Mybatis工具群（2000 人已满）： <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=29e4cce8ac3c65d14a1dc40c9ba5c8e71304f143f3ad759ac0b05146e0952044"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Mybatis工具" title="Mybatis工具"></a>
+- Mybatis工具群： 211286137 (Mybatis相关工具插件等等)

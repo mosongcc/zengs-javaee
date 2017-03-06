@@ -1,0 +1,42 @@
+group 'com.zengs.javaee'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'spring-xml-extend'
+    version =  '1.0.0'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile(
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-jdbc',
+            //'org.springframework.boot:spring-boot-starter-cache',
+            //'org.springframework.boot:spring-boot-starter-session',
+            //'org.springframework.boot:spring-boot-starter-freemarker',
+
+            //'org.springframework.boot:spring-boot-starter-security',
+            //'org.springframework.boot:spring-boot-starter-data-redis',
+
+            //Druid 连接池 与Jdbc driver Oracle需放入lib或者手动加到maven源
+            'com.alibaba:druid:1.0.11',
+            //oracle10g druid 1.0.12到1.0.20都有错误,更高版本待测试
+    )
+    compile fileTree(dir: 'src/main/resources/lib', include: ['ojdbc14.jar'])
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+

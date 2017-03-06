@@ -59,4 +59,5 @@ public class QueryModel {
     public void setReasonable(Boolean reasonable) {
         this.reasonable = reasonable;
     }
+
 }
