@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unionlive.app.mapper.MemberMapper">
+
+    <select id="getMember" parameterType="int" resultType="com.unionlive.app.entity.ZeMember">
+        select * from ZE_MEMBER where id = #{id}
+    </select>
+</mapper>

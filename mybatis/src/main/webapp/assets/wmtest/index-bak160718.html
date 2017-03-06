@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0046)http://d.umq.me/allinpay/Tests/testMobile.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>优方外卖整合平台API接口测试程序</title>
+    <style type="text/css">
+        .style1{font-size:small}
+        #webServiceUrl{width:462px}
+        #input{width:730px;height:180px}
+        #output{width:730px;height:180px}
+        #status{font-size:small}
+        .label{padding:2px;border:solid 1px grey}
+    </style>
+    <script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.xmlext.js"></script>
+    <script src="./js/jquery.utility.js" type="text/javascript"></script>
+    <script src="./js/waimai.test.js?v=16071812" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        //外卖API测试接口
+        var wmapi = [
+            {n:'M001-客户端应用校验',v:'{"header":{"version":"1.0","transType":"T100","submitTime":"20160706104851","sessionId":"","clientTraceNo":"089f54c7-f013-4b51-8acc-2a1ae05e730a","method":"unionlive.system.validateapp"},"body":{"appId":"182000899000001","appVersionNo":"1","appVersion":"1.0","deviceType":"clientz","deviceOS":"clientz","deviceOSVersion":"44","deviceModel":"clientz"}}'},
+            {n:'M003-客户端错误报告',v:'{"header":{"version":"1.0","transType":"M003","submitTime":"20160706104851","sessionId":"","clientTraceNo":"089f54c7-f013-4b51-8acc-2a1ae05e730a","method":"unionlive.system.reportexception"},"body":{"appId":"182000899000001","appVersionNo":"1","appVersion":"1.0","deviceType":"clientz","deviceOS":"clientz","deviceOSVersion":"44","deviceModel":"clientz","bugDesc":"APP出错了，记录到日志文件。"}}'},
+            {n:'M004-客户端应用信息查询',v:'{"header":{"version":"1.0","transType":"M004","submitTime":"20160706104851","sessionId":"","clientTraceNo":"089f54c7-f013-4b51-8acc-2a1ae05e730a","method":"unionlive.system.queryappinfo"},"body":{"appId":"182000899000001","htmlType":"1"}}'},
+            {n:'T100-商户登录',v:'{"header":{"version":"1.0","transType":"T100","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.merchant.login"},"body":{"shopId":"182000899000001","shopOperId":"oper008","password":"1qa2ws"}}'},
+            {n:'T101-店铺基本信息查询',v:'{"header":{"version":"1.0","transType":"T101","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.merchant.queryshopinfo"},"body":{"loginSessionId":""}}'},
+            {n:'T102-店铺营业情况查询',v:'{"header":{"version":"1.0","transType":"T102","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.merchant.shopbusinessinfo"},"body":{"loginSessionId":""}}'},
+            {n:'T104-客户端投诉建议接口',v:'{"header":{"version":"1.0","transType":"T105","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.merchant.shopcomplain"},"body":{"loginSessionId":"","complainMsg":"投诉建议..."}}'},
+            {n:'T105-商户名称查询',v:'{"header":{"version":"1.0","transType":"T105","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.merchant.queryshopname"},"body":{"shopId":"182000899000001"}}'},
+            {n:'T201-订单查询',v:'{"header":{"version":"1.0","transType":"T202","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.order.list"},"body":{"loginSessionId":"","status":-1,"channelId":"","pageSize":3,"pageIndex":0}}'},
+            {n:'T202-订单详情',v:'{"header":{"version":"1.0","transType":"T202","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.order.detail"},"body":{"loginSessionId":"","orderId":"1467887261030"}}'},
+            {n:'T301-确认订单',v:'{"header":{"version":"1.0","transType":"T301","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.order.confirm"},"body":{"loginSessionId":"","orderId":"1467887261030"}}'},
+            {n:'T302-取消订单',v:'{"header":{"version":"1.0","transType":"T302","submitTime":"20160706104851","sessionId":"","clientTraceNo":"","method":"unionlive.order.cancel"},"body":{"loginSessionId":"","orderId":"","cancelType":"2","cancelReason":"不开心，不接单"}}'},
+            {n:'',v:''},
+            {n:'',v:''},
+            {n:'',v:''},
+            {n:'',v:''},
+            {n:'',v:''},
+            {n:'',v:''},
+            {n:'',v:''},
+            {n:'',v:''},
+
+        ];
+    </script>
+</head>
+<body>
+<div style="width: 800px;margin: 0 auto;">
+    <h1>
+        优方外卖整合平台API接口测试程序</h1>
+    <p class="style1">
+        请求地址:
+        <input id="webServiceUrl" type="text" value="../gateway.test"></p>
+    <p style="font-size: small">
+        交易类型：
+        <select id="transType">
+            <option value="" selected="selected">请选择交易类型</option>
+        </select>&nbsp;
+        <input id="testTrans" type="button" value="测试交易">&nbsp;<span id="status">解析返回结果成功.</span>
+    </p>
+    <p style="font-size: small">
+        外卖下单：
+        <input type="button" value="百度外卖下单" id="baiduCreateOrder" data-url="/baiduwmpush.test" data-params='{"body":{"shop":{"id":"2520","name":"百度外卖（测试店）"},"order":{"order_id":"14347012309352","send_immediately":1,"send_time":"1","send_fee":500,"package_fee":200,"discount_fee":0,"total_fee":3700,"shop_fee":3200,"user_fee":3700,"pay_type":1,"pay_status":1,"need_invoice":2,"invoice_title":"","remark":"请提供餐具","delivery_party":1,"create_time":"1434701230"},"user":{"name":"测试订单请勿操作","phone":"18912345678","gender":1,"address":"北京海淀区奎科科技大厦 测试","coord":{"longitude":116.143145,"latitude":39.741426}},"products":[{"product_id":"12277320","product_name":"酱肉包（/份）","product_price":1200,"product_amount":1,"product_fee":1200,"package_price":100,"package_amount":1,"package_fee":100,"total_fee":1300,"upc":""}],"discount":[]},"cmd":"order.create","sign":"E362B8AACE4F7A77047A885C0C0D230D","source":"65400","ticket":"909C3B92-8CDD-AF2C-C887-5B660233E2B2","timestamp":1434701234,"version":"2.0"}'>
+        <input type="button" value="美团外卖下单">
+        <input type="button" value="饿了么外卖下单"></p>
+    <div style="font-size: small">
+        请求数据：</div>
+    <p style="font-size: small">
+        <textarea id="input"></textarea></p>
+    <div style="font-size: small">
+        交易返回：</div>
+    <p style="font-size: small">
+        <textarea id="output"></textarea></p>
+
+</div>
+</body>
+</html>
