@@ -1,20 +1,26 @@
 package com.unionlive.app.entity;
 
-/**
- *
- */
-public class ZeMember {
+import java.io.Serializable;
+import java.math.BigDecimal;
 
-    private String id;
+public class ZeMember implements Serializable {
+    private BigDecimal id;
+
     private String name;
+
     private String userName;
 
+    private String remarkMsg;
 
-    public String getId() {
+    private BigDecimal age;
+
+    private static final long serialVersionUID = 1L;
+
+    public BigDecimal getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(BigDecimal id) {
         this.id = id;
     }
 
@@ -23,7 +29,7 @@ public class ZeMember {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getUserName() {
@@ -31,6 +37,22 @@ public class ZeMember {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getRemarkMsg() {
+        return remarkMsg;
+    }
+
+    public void setRemarkMsg(String remarkMsg) {
+        this.remarkMsg = remarkMsg == null ? null : remarkMsg.trim();
+    }
+
+    public BigDecimal getAge() {
+        return age;
+    }
+
+    public void setAge(BigDecimal age) {
+        this.age = age;
     }
 }
