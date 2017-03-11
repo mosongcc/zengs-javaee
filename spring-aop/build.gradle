@@ -1,0 +1,80 @@
+group 'com.zengs.javaee'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.mybatis:mybatis:3.4.2',
+            'org.mybatis:mybatis-spring:1.3.1',
+
+            //Spring Framework
+            'org.springframework:spring-context:4.2.3.RELEASE',
+            'org.springframework:spring-context-support:4.2.3.RELEASE',
+            'org.springframework:spring-webmvc:4.2.3.RELEASE',
+            'org.springframework:spring-jdbc:4.2.3.RELEASE',
+
+            //Spring aop
+            'org.springframework:spring-aop:4.2.3.RELEASE',
+            'org.aspectj:aspectjrt:1.8.5',
+            'org.aspectj:aspectjweaver:1.8.5',
+            'cglib:cglib:3.2.0',
+
+            //Spring Security
+            //'org.springframework.security:spring-security-web:4.0.3.RELEASE',
+
+            //Freemarker
+            //'org.freemarker:freemarker:2.3.23',
+
+            //Druid 连接池 与Jdbc driver  Oracle需放入lib或者手动加到maven源
+            'com.alibaba:druid:1.0.11',
+            //oracle10g druid 1.0.11到1.0.20都有错误
+            //'mysql:mysql-connector-java:5.1.37',
+
+            //Json 2.x
+            'com.fasterxml.jackson.core:jackson-core:2.6.4',                    //流式的解析器和生成器
+            'com.fasterxml.jackson.core:jackson-annotations:2.6.4',             //带注释的数据绑定包
+            'com.fasterxml.jackson.core:jackson-databind:2.6.4',                //对象映射器，JSON树模型
+            'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.4',    //xml支持
+
+            //XML dom4j
+            //'dom4j:dom4j:1.6',
+
+            //log4j2
+            'org.apache.logging.log4j:log4j-api:2.3',
+            'org.apache.logging.log4j:log4j-core:2.3',
+
+            //Apache
+            'commons-io:commons-io:2.4',
+            'commons-lang:commons-lang:2.6',
+            'commons-fileupload:commons-fileupload:1.3.1',
+            //'org.apache.httpcomponents:httpclient:4.5',
+
+            //京东到家外卖依赖包 -计划移除
+            'commons-codec:commons-codec:1.10',
+            'commons-httpclient:commons-httpclient:3.1',
+
+
+            //个推APP消息推送
+            //'com.gexin.platform:gexin-rp-sdk-http:4.0.1.7',
+            //'com.gexin.platform:gexin-rp-sdk-template:4.0.0.6',
+    )
+    compile fileTree(dir: 'src/main/webapp/WEB-INF/lib', include: ['ojdbc14.jar'])
+
+    testCompile(
+            'junit:junit:4.12',
+            'org.springframework:spring-test:4.2.3.RELEASE',
+    )
+    providedCompile(
+            'javax:javaee-api:7.0',
+            //Mybatis Generator
+            'org.mybatis.generator:mybatis-generator-core:1.3.2'
+    )
+
+}
