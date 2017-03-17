@@ -10,4 +10,5 @@ include '_war-webapp'
 include '_jar-spring-jdbc'
 include '_jar-mybatis'
 include 'graphql'
+include 'spring-aop'
 

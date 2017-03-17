@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionlive.app.mapper.ZeMemberMapper">
+  <resultMap id="BaseResultMap" type="com.unionlive.app.entity.ZeMember">
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="NAME" jdbcType="CHAR" property="name" />
+    <result column="USER_NAME" jdbcType="CHAR" property="userName" />
+    <result column="REMARK_MSG" jdbcType="VARCHAR" property="remarkMsg" />
+    <result column="AGE" jdbcType="DECIMAL" property="age" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, NAME, USER_NAME, REMARK_MSG, AGE
+  </sql>
+  <select id="selectByExample" parameterType="com.unionlive.app.entity.ZeMemberExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ZE_MEMBER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.unionlive.app.entity.ZeMemberExample">
+    delete from ZE_MEMBER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionlive.app.entity.ZeMember">
+    insert into ZE_MEMBER (ID, NAME, USER_NAME, 
+      REMARK_MSG, AGE)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=CHAR}, #{userName,jdbcType=CHAR}, 
+      #{remarkMsg,jdbcType=VARCHAR}, #{age,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionlive.app.entity.ZeMember">
+    insert into ZE_MEMBER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="remarkMsg != null">
+        REMARK_MSG,
+      </if>
+      <if test="age != null">
+        AGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=CHAR},
+      </if>
+      <if test="remarkMsg != null">
+        #{remarkMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionlive.app.entity.ZeMemberExample" resultType="java.lang.Long">
+    select count(*) from ZE_MEMBER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ZE_MEMBER
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=CHAR},
+      </if>
+      <if test="record.remarkMsg != null">
+        REMARK_MSG = #{record.remarkMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        AGE = #{record.age,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ZE_MEMBER
+    set ID = #{record.id,jdbcType=DECIMAL},
+      NAME = #{record.name,jdbcType=CHAR},
+      USER_NAME = #{record.userName,jdbcType=CHAR},
+      REMARK_MSG = #{record.remarkMsg,jdbcType=VARCHAR},
+      AGE = #{record.age,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
