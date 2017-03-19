@@ -1,0 +1,24 @@
+group 'com.zengs.javaee'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'com.jfinal:jfinal:3.0',
+
+            'com.alibaba:druid:1.0.11',
+
+    )
+    compile fileTree(dir: 'src/main/webapp/WEB-INF/lib', include: ['ojdbc14.jar'])
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    providedCompile(
+            'javax:javaee-api:7.0',
+    )
+}

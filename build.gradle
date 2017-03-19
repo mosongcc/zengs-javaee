@@ -53,7 +53,7 @@ allprojects {
 subprojects {
 
     dependencies {
-        compile(
+        /*compile(
 
                 //Json 2.x
                 'com.fasterxml.jackson.core:jackson-core:2.6.4',                    //流式的解析器和生成器
@@ -65,7 +65,7 @@ subprojects {
 
 
 
-        )
+        )*/
         testCompile(
                 'junit:junit:4.12',
         )
