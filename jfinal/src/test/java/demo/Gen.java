@@ -24,13 +24,6 @@ public class Gen {
         druidDataSource.setPassword("unionlive");
         druidDataSource.setValidationQuery("select 1 FROM DUAL");
 
-        Db.query("");
-        Db.find("");
-
-        Record record = new Record();
-
-        Db.save("",record);
-
         /*DruidPlugin dp = new DruidPlugin(
                 "jdbc:oracle:thin:@//180.169.17.69:1521/orcl",
                 "unionlive",
@@ -49,7 +42,7 @@ public class Gen {
         Generator gernerator = new Generator(druidDataSource, baseModelPkg, baseModelDir,
                 modelPkg, modelDir);
         //不需要生成的表
-        gernerator.addExcludedTable("");
+        //gernerator.addExcludedTable("");
         gernerator.generate();
     }
 }
