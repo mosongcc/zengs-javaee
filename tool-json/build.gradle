@@ -4,10 +4,6 @@ version '1.0'
 apply plugin: 'java'
 
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     compile(
 
@@ -18,7 +14,7 @@ dependencies {
             'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.4',    //xml支持
 
             //Apache
-
+            'commons-io:commons-io:2.4',
 
 
     )
