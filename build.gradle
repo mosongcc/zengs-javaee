@@ -27,14 +27,14 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-    task createJavaProject << {
+    /*task createJavaProject << {
         sourceSets*.java.srcDirs*.each { it.mkdirs() }
         sourceSets*.resources.srcDirs*.each { it.mkdirs() }
     }
     task createWebProject(dependsOn: 'createJavaProject') << {
         def webAppDir = file("$webAppDirName")
         webAppDir.mkdirs()
-    }
+    }*/
 
     [compileJava,compileTestJava,javadoc]*.options*.encoding='UTF-8'
     compileJava*.options*.compilerArgs=[/*"-Xlint:unchecked",*/ "-g:vars", "-g:lines", "-g:source"]
@@ -43,8 +43,8 @@ allprojects {
 
     repositories {
         mavenLocal()
-        //mavenCentral()
-        //jcenter()
+        mavenCentral()
+        jcenter()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
     }
 

@@ -1,0 +1,26 @@
+group 'com.zengs.javaee'
+version '1.0'
+
+apply plugin: 'java'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+
+            //Json 2.x
+            'com.fasterxml.jackson.core:jackson-core:2.6.4',                    //流式的解析器和生成器
+            'com.fasterxml.jackson.core:jackson-annotations:2.6.4',             //带注释的数据绑定包
+            'com.fasterxml.jackson.core:jackson-databind:2.6.4',                //对象映射器，JSON树模型
+            'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.4',    //xml支持
+
+            //Apache
+
+
+
+    )
+
+}
