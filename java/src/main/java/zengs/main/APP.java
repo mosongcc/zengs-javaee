@@ -1,9 +1,5 @@
 package zengs.main;
 
-import zengs.main.entity.Member;
-
-import java.util.concurrent.*;
-
 /**
  *
  */
@@ -14,6 +10,14 @@ public class APP {
         System.out.println(a==b);
         Integer c = 100,d=100;
         System.out.println(c==d);
+
+
+       new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //APP.method();//假如这个方法需要3分钟才执行完
+            }
+        }).start();
 
     }
 

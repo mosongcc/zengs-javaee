@@ -16,7 +16,7 @@ public class JsonGeneratePojo {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private PojoAttributeName attributeName = new DefaultAttributeName();
+    private DefaultName defaultName = new DefaultName();
 
     private boolean isJsonAnnotation = false;
 
@@ -30,10 +30,10 @@ public class JsonGeneratePojo {
 
     /**
      * 设置属性名称输出规则
-     * @param pojoAttributeNameImpl
+     * @param pojoNameImpl
      */
-    public void setAttributeName(PojoAttributeName pojoAttributeNameImpl){
-        this.attributeName = pojoAttributeNameImpl;
+    public void setDefaultName(DefaultName pojoNameImpl){
+        this.defaultName = pojoNameImpl;
     }
 
     /**
@@ -79,12 +79,12 @@ public class JsonGeneratePojo {
                 Object v = map.getValue();
                 if(v instanceof Map){
                     //Map类型生成实体类
-                    String[] attribute = {UtilsMethod.toUpperCaseFirstOne(k),k};//0 类型 1名字
+                    String[] attribute = {defaultName.className(k),k};//0 类型 1名字
                     list.add(attribute);
                     this.generatePojo(UtilsMethod.replaceClassName(classPackage,k),v);
                 }else if(v instanceof List){
                     //List类型生成实体类，只取一个Map获取结构信息
-                    String[] attribute = {"List<"+UtilsMethod.toUpperCaseFirstOne(k)+">",k};//0 类型 1名字
+                    String[] attribute = {"List<"+defaultName.className(k)+">",k};//0 类型 1名字
                     list.add(attribute);
                     for (Object o : (List) v) {
                         this.generatePojo(UtilsMethod.replaceClassName(classPackage,k),o);
@@ -102,7 +102,7 @@ public class JsonGeneratePojo {
         if(obj instanceof List){
             List<Object> list = (List<Object>) obj;
             for (Object o : list) {
-                this.generatePojo(classPackage,obj);
+                this.generatePojo(classPackage,o);
                 break;
             }
         }
@@ -124,7 +124,7 @@ public class JsonGeneratePojo {
                 builder.append("\t@JsonProperty(\""+v[1]+"\") #br#");
             }
             String attr = "\tprivate #type# #attribute#; #br#";
-            attr = attr.replace("#type#",v[0]).replace("#attribute#",attributeName.attrName(v[1]));
+            attr = attr.replace("#type#",v[0]).replace("#attribute#",defaultName.attrName(v[1]));
             builder.append(attr);
         });
         builder.append("#br#");
@@ -140,9 +140,9 @@ public class JsonGeneratePojo {
 
             String gsMethod = method.toString()
                     .replaceAll("#type#",v[0])
-                    .replaceAll("#attribute#",attributeName.attrName(v[1]))
-                    .replaceAll("#getMethod#",attributeName.getMethodName(v[1]))
-                    .replaceAll("#setMethod#",attributeName.setMethodName(v[1]));
+                    .replaceAll("#attribute#",defaultName.attrName(v[1]))
+                    .replaceAll("#getMethod#",defaultName.getMethodName(v[1]))
+                    .replaceAll("#setMethod#",defaultName.setMethodName(v[1]));
 
             builder.append(gsMethod);
         });
@@ -159,6 +159,7 @@ public class JsonGeneratePojo {
 
         String packageName = classPath.substring(0,classPath.lastIndexOf("."));
         String className = classPath.substring(classPath.lastIndexOf(".")+1);
+        className = defaultName.className(className);
         String javaCode = builder.toString()
                 .replace("#package#",packageName)
                 .replace("#import#",sbimport)
