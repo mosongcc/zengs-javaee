@@ -1,0 +1,13 @@
+group 'com.zengs.javaee'
+version '1.0'
+
+apply plugin: 'java'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}

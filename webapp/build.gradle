@@ -1,0 +1,17 @@
+group 'com.zengs.javaee'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':apache-commons')
+    providedCompile(
+            'javax:javaee-api:7.0',
+    )
+}
