@@ -8,4 +8,5 @@ include 'tool-json'
 include 'webapp'
 include 'zing-json'
 include 'zing-io'
+include 'http-server'
 
