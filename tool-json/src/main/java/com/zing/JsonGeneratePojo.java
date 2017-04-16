@@ -92,7 +92,10 @@ public class JsonGeneratePojo {
                     }
                 }else{
                     //普通类型直接输出字段
-                    String type = v.getClass().getSimpleName();
+                    String type = "String";
+                    if(v!=null){
+                        type = v.getClass().getSimpleName();
+                    }
                     String[] attribute = {type,k};//0 类型 1名字
                     list.add(attribute);
                 }
