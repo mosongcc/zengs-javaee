@@ -1,9 +1,6 @@
 package com.zingson.jfain.jdbc.dialect;
 
-import com.zingson.jfain.jdbc.Page;
 import com.zingson.jfain.jdbc.annotation.JFMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -61,7 +58,9 @@ public abstract class Dialect {
         }
     }*/
 
-    public void insert(final StringBuffer sql,List<Object> values,Object obj) throws SQLException {
+    public int insert(Connection conn,Object obj) throws SQLException {
+        final StringBuffer sql = new StringBuffer();
+        final List<Object> values = new ArrayList<>();
         Map<String,Object> map = getJFMap(obj);
         StringBuffer column = new StringBuffer();
         StringBuffer placeholder = new StringBuffer();
@@ -73,14 +72,20 @@ public abstract class Dialect {
         sql.append("INSERT INTO ").append(getTableName(obj.getClass()))
                 .append(" ( ").append(column.substring(0,column.length()-1)).append(" ) values ( ")
                 .append(placeholder.substring(0,placeholder.length()-1)).append(" ) ");
+        return executeUpdate(conn,sql,values.toArray());
     }
 
-    public void delete(final StringBuffer sql,List<Object> values,Class clazz,Criteria...criterias) throws SQLException {
+    public int delete(Connection conn,Class clazz,Criteria...criterias) throws SQLException {
+        final StringBuffer sql = new StringBuffer();
+        final List<Object> values = new ArrayList<>();
         sql.append("DELETE FROM ").append(getTableName(clazz));
         where(sql,values,criterias);
+        return executeUpdate(conn,sql,values.toArray());
     }
 
-    public void update(final StringBuffer sql,List<Object> values,Object obj,Criteria...criterias) throws SQLException {
+    public int update(Connection conn,Object obj,Criteria...criterias) throws SQLException {
+        final StringBuffer sql = new StringBuffer();
+        final List<Object> values = new ArrayList<>();
         sql.append("UPDATE ").append(getTableName(obj.getClass())).append(" SET ");
         Map<String,Object> map = getJFMap(obj);
         boolean b = false;
@@ -91,6 +96,7 @@ public abstract class Dialect {
             values.add(entry.getValue());
         }
         where(sql,values,criterias);
+        return executeUpdate(conn,sql,values.toArray());
     }
 
     public ResultSet queryModelById(Connection conn,Object obj) throws SQLException {
@@ -110,14 +116,51 @@ public abstract class Dialect {
         where(sql,values,criterias);
     }
 
-    public void paginate(int pageNumber,int pageSize,final StringBuffer sql,final List<Object> values,Class clazz,Criteria...criterias) throws SQLException {
+    /**
+     * 单表条件查询
+     * @param conn
+     * @param clazz
+     * @param criterias
+     * @param <T>
+     * @return
+     * @throws SQLException
+     */
+    public <T>List<T> queryForList(Connection conn,Class<T> clazz,Criteria...criterias) throws SQLException {
+        return queryForList(conn,clazz,clazz,criterias);
+    }
+
+    public <T>List<T> queryForListMap(Connection conn,Class<T> clazz,Criteria...criterias) throws SQLException {
+        return queryForList(conn,clazz, (Class<T>) Map.class,criterias);
+    }
+
+    public <T>List<T> queryForList(Connection conn,Class<T> clazz,Class<T> returnClass,Criteria...criterias) throws SQLException {
+        final StringBuffer sql = new StringBuffer("SELECT * FROM ").append(getTableName(clazz));
+        final List<Object> values = new ArrayList<>();
+        where(sql,values,criterias);
+        return rsList(conn,sql,values,returnClass);
+    }
+
+    public <T>List<T> queryForListPage(Connection conn,Class<T> clazz,Class<T> returnClass,int pageNumber,int pageSize,Criteria...criterias) throws SQLException {
         throw new RuntimeException("You should implements this method in " + getClass().getName());
     }
 
-    public void paginateCount(StringBuffer sql) throws SQLException {
-        sql = new StringBuffer("SELECT COUNT(*) FROM ( ").append(sql).append(" )");
+    public List<Map> queryForCount(Connection conn, Class clazz, Criteria...criterias) throws SQLException {
+        StringBuffer sql = new StringBuffer("SELECT * FROM ").append(getTableName(clazz));
+        List<Object> values = new ArrayList<>();
+        where(sql,values,criterias);
+        sql = new StringBuffer("SELECT COUNT(*) FROM ( ").append(sql).append(" ) t_count_0");
+        return rsList(conn,sql,values,Map.class);
     }
 
+    public <T>List<T> rsList(Connection conn,final StringBuffer sql,final List<Object> values,Class<T> returnClass) throws SQLException {
+        return executeQuery(conn,(rs)->rsToObject(rs,returnClass),sql,values.toArray());
+    }
+
+    private <T>List<T> rsToObject(ResultSet rs,Class<T> tClass) throws SQLException {
+        List<T> rsList = new ArrayList<>();
+        while (rs.next()){ rsList.add(resultSetToObject(tClass,rs)); }
+        return rsList;
+    }
 
     protected void where(final StringBuffer sql,final List<Object> values,final Criteria...criterias){
         if(criterias==null||criterias.length==0){
@@ -146,11 +189,11 @@ public abstract class Dialect {
         return jfMap.value();
     }
 
-    protected Map<String,Object> getJFMap(Object obj) throws SQLException{
+    protected Map<String,Object> getJFMap(Object obj) {
         return getJFMap(obj,false);
     }
 
-    protected Map<String,Object> getJFMap(Object obj,boolean isKey) throws SQLException {
+    protected Map<String,Object> getJFMap(Object obj,boolean isKey){
         Class clazz = obj.getClass();
         StringBuffer errMsg = new StringBuffer("Error entity JFMap ").append(clazz.getName());
         Map<String ,Object> map = new LinkedHashMap<>();
@@ -178,10 +221,8 @@ public abstract class Dialect {
             errMsg.append(e.getMessage());
         } catch (InvocationTargetException e) {
             errMsg.append(e.getMessage());
-        } catch (Exception e){
-            errMsg.append(e.getMessage());
         }
-        throw new SQLException(errMsg.toString());
+        throw new RuntimeException(errMsg.toString());
     }
 
     //Cache set Method
@@ -199,30 +240,42 @@ public abstract class Dialect {
 
     }
 
-    public <T> T resultSetToObject(Class<T> clazz,ResultSet rs) throws SQLException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        ResultSetMetaData md = rs.getMetaData();    //得到结果集(rs)的结构信息，字段数、字段名等
-        int columnCount = md.getColumnCount();      //返回此 ResultSet 对象中的列数
+    public <T> T resultSetToObject(Class<T> clazz,ResultSet rs) throws SQLException {
+        String errMsg = null;
+        try {
+            ResultSetMetaData md = rs.getMetaData();    //得到结果集(rs)的结构信息，字段数、字段名等
+            int columnCount = md.getColumnCount();      //返回此 ResultSet 对象中的列数
 
-        //返回Map集合
-        if(clazz==Map.class){
-            Map<String, Object> rowMap = new LinkedHashMap<>();
+            //返回Map集合
+            if(clazz==Map.class){
+                Map<String, Object> rowMap = new LinkedHashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    rowMap.put(md.getColumnName(i), rs.getObject(i));
+                }
+                return (T) rowMap;
+            }
+
+            setMethodMap(clazz);
+            Method method;
+            //返回实体类对象
+            T obj = clazz.newInstance();
             for (int i = 1; i <= columnCount; i++) {
-                rowMap.put(md.getColumnName(i), rs.getObject(i));
+                method = methodMap.get(clazz.getName()+md.getColumnName(i));
+                if(method!=null){
+                    method.invoke(obj,rs.getObject(i));
+                }
             }
-            return (T) rowMap;
+            return obj;
+        } catch (NoSuchMethodException e) {
+            errMsg = e.getMessage();
+        } catch (InstantiationException e) {
+            errMsg = e.getMessage();
+        } catch (IllegalAccessException e) {
+            errMsg = e.getMessage();
+        } catch (InvocationTargetException e) {
+            errMsg = e.getMessage();
         }
-
-        setMethodMap(clazz);
-        Method method;
-        //返回实体类对象
-        T obj = clazz.newInstance();
-        for (int i = 1; i <= columnCount; i++) {
-            method = methodMap.get(clazz.getName()+md.getColumnName(i));
-            if(method!=null){
-                method.invoke(obj,rs.getObject(i));
-            }
-        }
-        return obj;
+        throw new RuntimeException(errMsg);
     }
 
 

@@ -99,5 +99,17 @@ public class DbTest {
         }
     }
 
+    @Test
+    public void paginate(){
+        try {
+            Page<User> page = Db.paginate(User.class,0,9);
+            System.out.println(page.getList());
+            System.out.println(page.getTotalPage());
+            System.out.println(page.getTotalRow());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

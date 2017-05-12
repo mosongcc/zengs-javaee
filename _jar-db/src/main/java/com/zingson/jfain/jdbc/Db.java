@@ -50,12 +50,16 @@ public class Db {
         return  JFJdbc.MAIN.tx(transaction);
     }
 
+    public static  <T>List<T> queryForList(Class<T> tClass, Criteria...criteria) throws SQLException {
+        return JFJdbc.MAIN.queryForList(tClass,criteria);
+    }
+
     public static List<Map<String,?>> queryForListMap(Class tClass, Criteria...criteria) throws SQLException {
         return JFJdbc.MAIN.queryForListMap(tClass,criteria);
     }
 
-    public static  <T>List<T> queryForList(Class<T> tClass, Criteria...criteria) throws SQLException {
-        return JFJdbc.MAIN.queryForList(tClass,criteria);
+    public static <T>Page<T> paginate(Class<T> tClass,int pageNumber,int pageSize,Criteria...criteria) throws SQLException{
+        return JFJdbc.MAIN.paginate(tClass,pageNumber,pageSize,criteria);
     }
 
     public static <T>T queryForModel(Class<T> tClass,Criteria...criteria) throws SQLException {
