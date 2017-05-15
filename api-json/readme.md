@@ -1,4 +1,4 @@
-GraphQL-Java
+JSON-API
 ========================
 
 ```
@@ -8,26 +8,28 @@ Query{
         name,
         age
     },
-    
-
 }
 
 REQ:
 {
-    "appid":"2323",
-    "sig":"123123ewerwefwfwefwef",
-    "biz":{
-        "users":[{
-            params:{ k :v,k1:v1},
-            filed:"uid,name,age,blogs",
-            blogs:{
-                params:{ id :#uid,k1:v1},
-                filed:"id,title,content,commons",
-                commons:""
-            }
-        }]
-    }
+	"appid": "2323",
+	"sig": "123123ewerwefwfwefwef",
+	"biz": {
+		"users": [{
+			"params": {
+				"uid": 123
+			},
+			"filed": "uid,name,age,blogs",
+			"blogs": {
+				"params": {
+					"id": "#uid"
+				},
+				"filed": "id,title,content,commons"
+			}
+		}]
+	}
 }
+
 {
     "appid":"2323",
     "sig":"123123ewerwefwfwefwef",

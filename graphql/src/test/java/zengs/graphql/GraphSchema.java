@@ -1,6 +1,6 @@
-package com.zengs.graphql;
+package zengs.graphql;
 
-import com.zengs.entity.User;
+import zengs.entity.User;
 import graphql.GraphQL;
 import graphql.schema.GraphQLFieldDefinition;
 import graphql.schema.GraphQLList;

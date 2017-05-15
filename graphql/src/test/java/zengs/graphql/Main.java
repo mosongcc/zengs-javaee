@@ -1,4 +1,4 @@
-package com.zengs.graphql;
+package zengs.graphql;
 
 import graphql.GraphQL;
 import graphql.schema.*;

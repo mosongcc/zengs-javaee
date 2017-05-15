@@ -3,6 +3,7 @@ package com.zingson.api.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.map.LinkedMap;
 import org.junit.Test;
+import org.omg.CORBA.Object;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,29 +14,45 @@ import java.util.Map;
  */
 public class APP {
 
-    ObjectMapper mapper = new ObjectMapper();
+    static ObjectMapper mapper = new ObjectMapper();
 
-    @Test
-    public void test(){
-        String query = "{\n" +
-                "    \"appid\":\"2323\",\n" +
-                "    \"sig\":\"123123ewerwefwfwefwef\",\n" +
-                "    \"biz\":{\n" +
-                "        \"users\":[{\n" +
-                "            \"params\":{ \"k\":\"v\"},\n" +
-                "            \"filed\":\"uid,name,age,blogs\"\n" +
-                "        }]\n" +
-                "    }\n" +
-                "}\n" +
-                "\n";
+    static String query = "{\n" +
+            "\t\"appid\": \"2323\",\n" +
+            "\t\"sig\": \"123123ewerwefwfwefwef\",\n" +
+            "\t\"biz\": {\n" +
+            "\t\t\"users\": [{\n" +
+            "\t\t\t\"params\": {\n" +
+            "\t\t\t\t\"uid\": 123\n" +
+            "\t\t\t},\n" +
+            "\t\t\t\"filed\": \"uid,name,age,blogs\",\n" +
+            "\t\t\t\"blogs\": {\n" +
+            "\t\t\t\t\"params\": {\n" +
+            "\t\t\t\t\t\"id\": \"#uid\"\n" +
+            "\t\t\t\t},\n" +
+            "\t\t\t\t\"filed\": \"id,title,content,commons\"\n" +
+            "\t\t\t}\n" +
+            "\t\t}]\n" +
+            "\t}\n" +
+            "}";
+
+    public static void main(String[] args) {
         try {
             Map<String,Object> queryMap = mapper.readValue(query, LinkedMap.class);
-
             System.out.println(queryMap);
+
+            Map<String,Object> bizMap = (Map<String, Object>) queryMap.get("biz");
+            System.out.println(bizMap);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+
+    @Test
+    public void test(){
+
 
     }
 
@@ -44,7 +61,7 @@ public class APP {
     public void usersModel(){
 
         Map<String,DefineField> map = new HashMap<>();
-        handle.put("users",map);
+        //handle.put("users",map);
 
 
     }

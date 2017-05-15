@@ -6,7 +6,7 @@ apply plugin: 'java'
 
 repositories {
     mavenLocal()
-    //mavenCentral()
+    mavenCentral()
 
     //graphql-java
     maven { url  "http://dl.bintray.com/andimarek/graphql-java" }

@@ -1,4 +1,4 @@
-package com.zengs.entity;
+package zengs.entity;
 
 
 public class User {
