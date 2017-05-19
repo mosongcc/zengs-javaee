@@ -33,7 +33,7 @@ public class APP {
             "\t\t\t}\n" +
             "\t\t}]\n" +
             "\t}\n" +
-            "}";
+            "}".getBytes();
 
     public static void main(String[] args) {
         try {

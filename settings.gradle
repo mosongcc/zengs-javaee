@@ -9,6 +9,8 @@ include 'webapp'
 include 'http-server'
 include '_jar-encrypt'
 include 'api-json'
-include '_jar-db'
 include 'java-proxy-server'
+
+include 'jfain-db'
+include 'jfain-encrypt'
 
