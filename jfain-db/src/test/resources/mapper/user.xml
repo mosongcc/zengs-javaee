@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="user">
+
+    <sql id="userList">
+        select * from user
+        <if isnull="">
+
+        </if>
+    </sql>
+
+
+
+
+</mapper>

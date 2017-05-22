@@ -1,0 +1,18 @@
+group 'com.zengs.javaee'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    testCompile(
+            'junit:junit:4.12',
+    )
+}
