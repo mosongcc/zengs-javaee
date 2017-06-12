@@ -13,6 +13,5 @@ include 'java-proxy-server'
 
 include 'jfain-db'
 include 'jfain-encrypt'
-include 'mybatis-example'
 include 'jodd-example'
 

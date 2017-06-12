@@ -12,11 +12,6 @@ idea {
 
 allprojects {
 
-    apply plugin: 'java'
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
     /*task createJavaProject << {
         sourceSets*.java.srcDirs*.each { it.mkdirs() }
         sourceSets*.resources.srcDirs*.each { it.mkdirs() }
@@ -26,21 +21,23 @@ allprojects {
         webAppDir.mkdirs()
     }*/
 
-    [compileJava,compileTestJava,javadoc]*.options*.encoding='UTF-8'
-    compileJava*.options*.compilerArgs=[/*"-Xlint:unchecked",*/ "-g:vars", "-g:lines", "-g:source"]
-    javadoc*.options*.encoding = 'UTF-8'
-
-
     repositories {
         mavenLocal()
         mavenCentral()
         jcenter()
         //maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
     }
-
 }
 
 subprojects {
+
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    [compileJava,compileTestJava,javadoc]*.options*.encoding='UTF-8'
+    compileJava*.options*.compilerArgs=[/*"-Xlint:unchecked",*/ "-g:vars", "-g:lines", "-g:source"]
+    javadoc*.options*.encoding = 'UTF-8'
 
     dependencies {
         testCompile(
